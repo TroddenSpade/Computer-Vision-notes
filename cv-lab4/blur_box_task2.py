@@ -9,15 +9,9 @@ cv2.waitKey()
 
 # creating a box filter
 m = 7  # choose filter size
-# m = 3
-# m = 15
-
-# create an m by m box filter
-F = np.ones((m, m), np.float64)/(m*m)
-print(F)
 
 # Now, filter the image
-J = cv2.filter2D(I, -1, F)
+J = cv2.blur(I, (m, m))
 cv2.imshow('blurred', J)
 cv2.waitKey()
 

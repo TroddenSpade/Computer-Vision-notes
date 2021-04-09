@@ -20,16 +20,14 @@ while True:
 
     # add noise to image
     N = np.random.rand(*I.shape) * noise_sigma
-    J = I + N
+    J = (I + N).astype(np.float32)
 
     if filter == 'b':
-        # filter with a box filter
+        K = cv2.blur(J, (m, m))
     elif filter == 'g':
-        # filter with a Gaussian filter
-        pass
+        K = cv2.GaussianBlur(J, (gm, gm), 0)
     elif filter == 'l':
-        # filter with a bilateral filter
-        pass
+        K = cv2.bilateralFilter(J, size, sigmaColor, sigmaSpace)
 
     # filtered image
 
@@ -58,24 +56,47 @@ while True:
         if m >= 3:
             m = m - 2
         print('m=', m)
+
     elif key == ord('u'):
         # increase noise
-        pass
+        noise_sigma = noise_sigma + 0.02
+        print('noise sigma=', noise_sigma)
+
     elif key == ord('d'):
         # decrease noise
-        pass
+        noise_sigma = noise_sigma - 0.02 if noise_sigma >= 0.02 else 0
+        print('noise sigma=', noise_sigma)
+
     elif key == ord('p'):
         # increase gm
-        pass
+        if filter == 'l':
+            sigmaColor = sigmaColor + 0.02
+            print('sigmaColor=', sigmaColor)
+        elif filter == 'g':
+            gm = gm + 2
+            print('gm=', gm)
+
     elif key == ord('n'):
         # decrease gm
-        pass
+        if filter == 'l':
+            sigmaColor = sigmaColor - 0.02 if sigmaColor >= 0.02 else 0
+            print('sigmaColor=', sigmaColor)
+        elif filter == 'g':
+            if gm >= 3:
+                gm = gm - 2
+            print('gm=', gm)
+
     elif key == ord('>'):
         # increase size
-        pass
+        size = size + 2
+        print('size=', size)
+
     elif key == ord('<'):
         # decrease size
-        pass
+        if size >= 3:
+            size = size - 2
+        print('size=', size)
+
     elif key == ord('q'):
         break  # quit
 
