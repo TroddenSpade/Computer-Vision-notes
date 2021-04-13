@@ -16,13 +16,13 @@ K = np.uint8(K)
 cv2.imshow('The difference image', K)
 cv2.waitKey(0)
 
-threshold = 35
+threshold = 31
 ret, T = cv2.threshold(K,threshold,255,cv2.THRESH_BINARY)
 cv2.imshow('Thresholded', T)
 cv2.waitKey(0)
 
 ## opening
-kernel = np.ones((5,5),np.uint8)
+kernel = np.ones((3,3),np.uint8)
 T = cv2.morphologyEx(T, cv2.MORPH_OPEN, kernel)
 cv2.imshow('After Openning', T)
 cv2.waitKey(0)
