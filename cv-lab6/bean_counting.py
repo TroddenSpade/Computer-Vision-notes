@@ -10,10 +10,10 @@ cv2.imshow('Thresholded', T)
 cv2.waitKey(0) # press any key to continue...
 
 ## erosion 
-# kernel = np.ones((5,5),np.uint8)
-# T = cv2.erode(T,kernel)
-# cv2.imshow('After Erosion', T)
-# cv2.waitKey(0) # press any key to continue...
+kernel = np.ones((19,19),np.uint8)
+T = cv2.erode(T,kernel)
+cv2.imshow('After Erosion', T)
+cv2.waitKey(0) # press any key to continue...
 
 n,C = cv2.connectedComponents(T);
 
