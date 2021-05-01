@@ -4,7 +4,7 @@ import glob
 
 fnames = glob.glob('*.jpg')
 
-for filename in fnames:
+for filename in fnames: 
     
     I = cv2.imread(filename)
     G = cv2.cvtColor(I,cv2.COLOR_BGR2GRAY)
@@ -16,7 +16,7 @@ for filename in fnames:
     H = cv2.cornerHarris(G,window_size,soble_kernel_size,alpha)
     H = H / H.max()
 
-    C = np.uint8(H > 0.01) * 255
+    C = np.uint8(H > 0.003) * 255
     J = I.copy()
     J[C != 0] = [0,0,255]
     cv2.imshow('corners',J)
