@@ -19,6 +19,15 @@ for fname in fnames:
     cv2.drawKeypoints(G1,keypoints2,I1)
     
     good_matches = []
+    bf = cv2.BFMatcher(crossCheck=False)
+    matches = bf.knnMatch(desc1,desc2, k=2)
+
+    alpha = 0.75
+    for m1,m2 in matches:
+        # m1 is the best match
+        # m2 is the second best match
+        if m1.distance < alpha *m2.distance:
+            good_matches.append(m1)
             
     I = cv2.drawMatches(I1,keypoints1,I2,keypoints2,good_matches, None)
     
