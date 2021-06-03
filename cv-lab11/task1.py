@@ -12,7 +12,7 @@ for theta in range(0,360):
     R = np.array([[np.cos(th),-np.sin(th)],
                   [np.sin(th), np.cos(th)]])
 
-    t = np.zeros((2,1)) # you need to change this!
+    t = c - (R @ c) # you need to change this!
 
     # concatenate R and t to create the 2x3 transformation matrix
     M = np.hstack([R,t])

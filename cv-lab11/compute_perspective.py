@@ -20,10 +20,13 @@ for i in range(4):
 
 # compute homography from point correspondences
 H = cv2.getPerspectiveTransform(points1, points2)
+H2 = cv2.getPerspectiveTransform(points2, points1)
 
 
 output_size = (I2.shape[1], I2.shape[0])
-J = cv2.warpPerspective(I1,H,  output_size)
+output_size2 = (I1.shape[1], I1.shape[0])
+J = cv2.warpPerspective(I1, H, output_size)
+J2 = cv2.warpPerspective(I2, H2, output_size2)
 
 cv2.imshow('I1',I1)
 cv2.waitKey(0)
@@ -34,3 +37,5 @@ cv2.waitKey(0)
 cv2.imshow('J',J)
 cv2.waitKey(0)
 
+cv2.imshow('J2',J2)
+cv2.waitKey(0)

@@ -9,12 +9,14 @@ ty = 60
 th =  20 # angle of rotation (degrees)
 th *= np.pi / 180 # convert to radians
 
-s = 0.6 # scale factor
+s = 2 # scale factor
 
 M = np.array([[s*np.cos(th),-s*np.sin(th),tx],
               [s*np.sin(th), s*np.cos(th),ty]])
 
 output_size = (I.shape[1], I.shape[0])
+# output_size = (int(s * I.shape[1] + tx), int(s * I.shape[0] + ty))
+
 J = cv2.warpAffine(I,M,  output_size)
 
 cv2.imshow('I',I)
