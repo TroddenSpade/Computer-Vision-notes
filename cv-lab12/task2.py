@@ -36,11 +36,12 @@ for fname in fnames:
 
     H, mask = cv2.findHomography(points1, points2, cv2.RANSAC,5.0)
 
-    H = np.eye(3,dtype=np.float32) # this needs to be changed
-    pts = np.float32([ [100,100],
-                       [100,400],
-                       [400,400],
-                       [400,100] ]).reshape(-1,1,2) # this needs to be changed
+    # H = np.eye(3,dtype=np.float32) # this needs to be changed
+    (m, n) = G1.shape
+    pts = np.float32([ [0,0],
+                       [0,m],
+                       [n,m],
+                       [n,0] ]).reshape(-1,1,2) # this needs to be changed
     
     dst = cv2.perspectiveTransform(pts,H).reshape(4,2)
    

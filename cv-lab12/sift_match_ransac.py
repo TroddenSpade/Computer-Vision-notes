@@ -21,7 +21,7 @@ print("Descriptors1.shape =", desc1.shape)
 print("Descriptors2.shape =", desc2.shape)
 
 # stop here!!
-exit() # comment this line out to move on!
+# exit() # comment this line out to move on!
 
 # brute-force matching
 bf = cv2.BFMatcher()
@@ -35,18 +35,18 @@ alpha = 0.75
 for m1,m2 in matches:
     # m1 is the best match
     # m2 is the second best match
-    if m1.distance < alpha *m2.distance:
+    if m1.distance < alpha * m2.distance:
         good_matches.append(m1)
 
 # apply RANSAC
-# points1 = [keypoints1[m.queryIdx].pt for m in good_matches]
-# points1 = np.array(points1,dtype=np.float32)
+points1 = [keypoints1[m.queryIdx].pt for m in good_matches]
+points1 = np.array(points1,dtype=np.float32)
 
-# points2 = [keypoints2[m.trainIdx].pt for m in good_matches]
-# points2 = np.array(points2,dtype=np.float32)
-# H, mask = cv2.findHomography(points1, points2, cv2.RANSAC,5.0) # 5 pixels margin
-# mask = mask.ravel().tolist()
-# print(mask)
+points2 = [keypoints2[m.trainIdx].pt for m in good_matches]
+points2 = np.array(points2,dtype=np.float32)
+H, mask = cv2.findHomography(points1, points2, cv2.RANSAC, 5.0) # 5 pixels margin
+mask = mask.ravel().tolist()
+print(mask)
 
 good_matches = [m for m,msk in zip(good_matches,mask) if msk == 1]
 
